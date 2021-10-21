@@ -9,7 +9,7 @@ class AdminHomeController extends Controller
 {
     public function adminhome(){
         if(Auth::check() && Auth::user()->userRole == 1){
-            return redirect('/admin/dashboard');  
+            return redirect('/admin/dashboard');
         }
         return view('admin.admin_login');
     }

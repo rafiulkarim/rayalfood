@@ -10,6 +10,7 @@ use App\Http\Controllers\AdminHomeController;
 use App\Http\Controllers\AdminCategoryController;
 use App\Http\Controllers\AdminDiscountController;
 use App\Http\Controllers\AdminProductController;
+use App\Http\Controllers\CartController;
 
 /* Cutomer Controller */
 
@@ -21,10 +22,26 @@ Route::post('/register', [RegistrationController::class, 'registration'])->name(
 Route::post('/login', [LoginController::class, 'login'])->name('login');
 
 // authentication return
+
 Route::get('/login', [RegistrationController::class, 'account'])->name('account');
 
 Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
 Route::get('/logout', [DashboardController::class, 'logout'])->name('logout');
+Route::get('/product/category/{id}', [HomeController::class, 'product_category'])->name('product_category');
+
+// single product
+Route::get('/single/product/{id}', [HomeController::class, 'single_product'])->name('single_product');
+
+// Dashboard category
+Route::get('/dashboard/product/category/{id}', [DashboardController::class, 'dashboard_category'])->name('dashboard_category');
+
+// Dashboard Single product
+Route::get('dashboard/single/product/{id}', [DashboardController::class, 'dashboard_single_product'])->name('single_product');
+
+// cart page
+Route::get('dashboard/cart', [CartController::class, 'dashboard_cart'])->name('dashboard_cart');
+
+Route::post('/dashboard/cart/update', [CartController::class, 'cart_update'])->name('cart_update');
 
 
 /* Admin Controller */
@@ -33,7 +50,7 @@ Route::get('/logout', [DashboardController::class, 'logout'])->name('logout');
 Route::get('/royalfood/admin', [AdminHomeController::class, 'adminhome'])->name('adminhome');
 Route::post('/admin/login', [AdminHomeController::class, 'admin_login'])->name('admin_login');
 Route::get('/admin/dashboard', [AdmindashboardController::class, 'admindashboard'])->name('admindashboard');
-Route::get('/login', [AdminHomeController::class, 'adminhome'])->name('adminhome');
+//Route::get('/login', [AdminHomeController::class, 'adminhome'])->name('adminhome');
 Route::get('/admin/logout', [AdmindashboardController::class, 'admin_logout'])->name('admin_logout');
 
 // Category
@@ -60,4 +77,10 @@ Route::get('/admin/discount/delete/{id}', [AdminDiscountController::class, 'disc
 Route::get('/admin/product/list', [AdminProductController::class, 'product'])->name('product');
 Route::get('/admin/add/product/', [AdminProductController::class, 'add_product'])->name('add_product');
 Route::post('/admin/add/product/process', [AdminProductController::class, 'product_process'])->name('product_process');
+Route::get('/admin/edit/product/{id}', [AdminProductController::class, 'edit_product'])->name('edit_product');
+Route::post('/admin/edit/product/process/{id}', [AdminProductController::class, 'edit_process'])->name('edit_process');
+Route::post('/admin/product/inactive', [AdminProductController::class, 'product_active'])->name('product_active');
+Route::post('/admin/product/active', [AdminProductController::class, 'product_inactive'])->name('product_inactive');
 
+// Cart
+Route::post('/product/cart', [CartController::class, 'cart'])->name('cart');

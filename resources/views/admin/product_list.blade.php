@@ -54,17 +54,17 @@
                                 <td>{{ $product->productDiscount->name }}</td>
                                 <td>
                                     @if($product->status == 0)
-                                        <a href="" class="btn btn-outline-primary" id="cat_active"  cat-id="{{ $product->id }}">
+                                        <a href="" class="btn btn-outline-primary" id="product_active"  pro-id="{{ $product->id }}">
                                             Active
                                         </a>
                                     @else
-                                        <a href="" class="btn btn-outline-primary" cat-id="{{ $product->id }}" id="cat_inactive">
+                                        <a href="" class="btn btn-outline-primary" pro-id="{{ $product->id }}" id="product_inactive">
                                             Inactive
                                         </a>
                                     @endif
                                 </td>
                                 <td>
-                                    <a href="" class="btn btn-outline-primary">
+                                    <a href="{{ url('/admin/edit/product/'. $product->id ) }}" class="btn btn-outline-primary">
                                         <img src="https://img.icons8.com/external-becris-lineal-becris/20/000000/external-edit-mintab-for-ios-becris-lineal-becris.png"/>
                                     </a>
                                     <a href="" class="btn btn-outline-danger">
@@ -86,45 +86,45 @@
 
 @section('admin_footer_script')
     <script>
-        {{--$(document.body).on('click', '#cat_active', function(e) {--}}
-        {{--    e.preventDefault();--}}
-        {{--    let cat_id = $(this).attr('cat-id');--}}
-        {{--    $(".loading").show();--}}
-        {{--    setTimeout(function () {--}}
-        {{--        // $( ".loading" ).hide();--}}
-        {{--        $.ajax({--}}
-        {{--            method: "post",--}}
-        {{--            url: '{{route('category_inactive')}}',--}}
-        {{--            data: {id:cat_id, _token: '{{ csrf_token() }}'},--}}
-        {{--            dataType: "json",--}}
-        {{--            success: function(res) {--}}
-        {{--                if(res.data){--}}
-        {{--                    $( ".loading" ).hide();--}}
-        {{--                    $('.card-body').prepend('<div id="custom-message" class="alert alert-success">' + res.message + '</div>');--}}
-        {{--                }--}}
-        {{--            },--}}
-        {{--        })--}}
-        {{--    }, 2000);--}}
-        {{--});--}}
+        $(document.body).on('click', '#product_active', function(e) {
+            e.preventDefault();
+            let pro_id = $(this).attr('pro-id');
+            $(".loading").show();
+            setTimeout(function () {
+                // $( ".loading" ).hide();
+                $.ajax({
+                    method: "post",
+                    url: '{{route('product_inactive')}}',
+                    data: {id:pro_id, _token: '{{ csrf_token() }}'},
+                    dataType: "json",
+                    success: function(res) {
+                        if(res.data){
+                            $( ".loading" ).hide();
+                            $('.card-body').prepend('<div id="custom-message" class="alert alert-success">' + res.message + '</div>');
+                        }
+                    },
+                })
+            }, 2000);
+        });
 
-        {{--$(document.body).on('click', '#cat_inactive', function(e) {--}}
-        {{--    e.preventDefault();--}}
-        {{--    let cat_id = $(this).attr('cat-id');--}}
-        {{--    $(".loading").show();--}}
-        {{--    setTimeout(function () {--}}
-        {{--        $.ajax({--}}
-        {{--            method: "post",--}}
-        {{--            url: '{{route('category_active')}}',--}}
-        {{--            data: {'id':cat_id, _token: '{{ csrf_token() }}'},--}}
-        {{--            dataType: "json",--}}
-        {{--            success: function(res) {--}}
-        {{--                if(res.data){--}}
-        {{--                    $( ".loading" ).hide();--}}
-        {{--                    $('.card-body').prepend('<div id="custom-message" class="alert alert-success">' + res.message + '</div>');--}}
-        {{--                }--}}
-        {{--            },--}}
-        {{--        })--}}
-        {{--    }, 1500);--}}
-        {{--});--}}
+        $(document.body).on('click', '#product_inactive', function(e) {
+            e.preventDefault();
+            let pro_id = $(this).attr('pro-id');
+            $(".loading").show();
+            setTimeout(function () {
+                $.ajax({
+                    method: "post",
+                    url: '{{route('product_active')}}',
+                    data: {'id':pro_id, _token: '{{ csrf_token() }}'},
+                    dataType: "json",
+                    success: function(res) {
+                        if(res.data){
+                            $( ".loading" ).hide();
+                            $('.card-body').prepend('<div id="custom-message" class="alert alert-success">' + res.message + '</div>');
+                        }
+                    },
+                })
+            }, 1500);
+        });
     </script>
 @endsection

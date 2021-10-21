@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="format-detection" content="telephone=no">
-    <title>Food Bank - {{ $title }}</title>
+    <title>Royal Food - {{ $title }}</title>
     <link rel="icon" type="image/png" href="https://img.icons8.com/bubbles/50/000000/hamburger.png">
     <!-- fonts -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,400i,500,500i,700,700i">
@@ -55,88 +55,15 @@
                         </button>
                     </div>
                     <div class="mobile-links__item-sub-links" data-collapse-content>
+                        @foreach($submenus as $submenu)
                         <ul class="mobile-links mobile-links--level--1">
+                            @if($submenu->maincategory == 'Baby')
                             <li class="mobile-links__item" data-collapse-item>
-                                <div class="mobile-links__item-title"><a href="blog-classic.html" class="mobile-links__item-link">Blog Classic</a></div>
+                                <div class="mobile-links__item-title"><a href="blog-classic.html" class="mobile-links__item-link">{{ $submenu->name }}</a></div>
                             </li>
-                            <li class="mobile-links__item" data-collapse-item>
-                                <div class="mobile-links__item-title"><a href="blog-grid.html" class="mobile-links__item-link">Blog Grid</a></div>
-                            </li>
-                            <li class="mobile-links__item" data-collapse-item>
-                                <div class="mobile-links__item-title"><a href="blog-list.html" class="mobile-links__item-link">Blog List</a></div>
-                            </li>
-                            <li class="mobile-links__item" data-collapse-item>
-                                <div class="mobile-links__item-title"><a href="blog-left-sidebar.html" class="mobile-links__item-link">Blog Left Sidebar</a></div>
-                            </li>
-                            <li class="mobile-links__item" data-collapse-item>
-                                <div class="mobile-links__item-title"><a href="post.html" class="mobile-links__item-link">Post Page</a></div>
-                            </li>
-                            <li class="mobile-links__item" data-collapse-item>
-                                <div class="mobile-links__item-title"><a href="post-without-sidebar.html" class="mobile-links__item-link">Post Without Sidebar</a></div>
-                            </li>
+                            @endif
                         </ul>
-                    </div>
-                </li>
-                <li class="mobile-links__item" data-collapse-item>
-                    <div class="mobile-links__item-title"><a href="blog-classic.html" class="mobile-links__item-link">Adult Food</a>
-                        <button class="mobile-links__item-toggle" type="button" data-collapse-trigger>
-                            <svg class="mobile-links__item-arrow" width="12px" height="7px">
-                                <use xlink:href="images/sprite.svg#arrow-rounded-down-12x7"></use>
-                            </svg>
-                        </button>
-                    </div>
-                    <div class="mobile-links__item-sub-links" data-collapse-content>
-                        <ul class="mobile-links mobile-links--level--1">
-                            <li class="mobile-links__item" data-collapse-item>
-                                <div class="mobile-links__item-title"><a href="blog-classic.html" class="mobile-links__item-link">Blog Classic</a></div>
-                            </li>
-                            <li class="mobile-links__item" data-collapse-item>
-                                <div class="mobile-links__item-title"><a href="blog-grid.html" class="mobile-links__item-link">Blog Grid</a></div>
-                            </li>
-                            <li class="mobile-links__item" data-collapse-item>
-                                <div class="mobile-links__item-title"><a href="blog-list.html" class="mobile-links__item-link">Blog List</a></div>
-                            </li>
-                            <li class="mobile-links__item" data-collapse-item>
-                                <div class="mobile-links__item-title"><a href="blog-left-sidebar.html" class="mobile-links__item-link">Blog Left Sidebar</a></div>
-                            </li>
-                            <li class="mobile-links__item" data-collapse-item>
-                                <div class="mobile-links__item-title"><a href="post.html" class="mobile-links__item-link">Post Page</a></div>
-                            </li>
-                            <li class="mobile-links__item" data-collapse-item>
-                                <div class="mobile-links__item-title"><a href="post-without-sidebar.html" class="mobile-links__item-link">Post Without Sidebar</a></div>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
-                <li class="mobile-links__item" data-collapse-item>
-                    <div class="mobile-links__item-title"><a href="blog-classic.html" class="mobile-links__item-link">Aged Food</a>
-                        <button class="mobile-links__item-toggle" type="button" data-collapse-trigger>
-                            <svg class="mobile-links__item-arrow" width="12px" height="7px">
-                                <use xlink:href="images/sprite.svg#arrow-rounded-down-12x7"></use>
-                            </svg>
-                        </button>
-                    </div>
-                    <div class="mobile-links__item-sub-links" data-collapse-content>
-                        <ul class="mobile-links mobile-links--level--1">
-                            <li class="mobile-links__item" data-collapse-item>
-                                <div class="mobile-links__item-title"><a href="blog-classic.html" class="mobile-links__item-link">Blog Classic</a></div>
-                            </li>
-                            <li class="mobile-links__item" data-collapse-item>
-                                <div class="mobile-links__item-title"><a href="blog-grid.html" class="mobile-links__item-link">Blog Grid</a></div>
-                            </li>
-                            <li class="mobile-links__item" data-collapse-item>
-                                <div class="mobile-links__item-title"><a href="blog-list.html" class="mobile-links__item-link">Blog List</a></div>
-                            </li>
-                            <li class="mobile-links__item" data-collapse-item>
-                                <div class="mobile-links__item-title"><a href="blog-left-sidebar.html" class="mobile-links__item-link">Blog Left Sidebar</a></div>
-                            </li>
-                            <li class="mobile-links__item" data-collapse-item>
-                                <div class="mobile-links__item-title"><a href="post.html" class="mobile-links__item-link">Post Page</a></div>
-                            </li>
-                            <li class="mobile-links__item" data-collapse-item>
-                                <div class="mobile-links__item-title"><a href="post-without-sidebar.html" class="mobile-links__item-link">Post Without Sidebar</a></div>
-                            </li>
-                        </ul>
+                        @endforeach
                     </div>
                 </li>
                 <li class="mobile-links__item" data-collapse-item>
@@ -190,8 +117,7 @@
                             <div class="indicator indicator--mobile-search indicator--mobile d-sm-none">
                                 <button class="indicator__button"><span class="indicator__area"><svg width="20px" height="20px"><use xlink:href="images/sprite.svg#search-20"></use></svg></span></button>
                             </div>
-                            <div class="indicator indicator--mobile d-sm-flex d-none"><a href="wishlist.html" class="indicator__button"><span class="indicator__area"><svg width="20px" height="20px"><use xlink:href="images/sprite.svg#heart-20"></use></svg> <span class="indicator__value">0</span></span></a></div>
-                            <div class="indicator indicator--mobile"><a href="cart.html" class="indicator__button"><span class="indicator__area"><svg width="20px" height="20px"><use xlink:href="images/sprite.svg#cart-20"></use></svg> <span class="indicator__value">3</span></span></a></div>
+                            <div class="indicator indicator--mobile"><a href="cart.html" class="indicator__button"><span class="indicator__area"><svg width="20px" height="20px"><use xlink:href="images/sprite.svg#cart-20"></use></svg> <span class="indicator__value">0</span></span></a></div>
                         </div>
                     </div>
                 </div>
@@ -233,56 +159,52 @@
                                 <ul class="nav-links__list">
                                     <li class="nav-links__item nav-links__item--with-submenu"><a href="{{ route('home') }}"><span>Home </span></a>
                                     </li>
-                                    <li class="nav-links__item nav-links__item--with-submenu"><a href="blog-classic.html"><span>Baby Food <svg class="nav-links__arrow" width="9px" height="6px"><use xlink:href="images/sprite.svg#arrow-rounded-down-9x6"></use></svg></span></a>
+                                    <li class="nav-links__item nav-links__item--with-submenu"><a href=""><span>Baby Food <i class="fa fa-angle-down p-1" aria-hidden="true"></i></span></a>
                                         <div class="nav-links__menu">
-                                            <!-- .menu -->
-                                            <ul class="menu menu--layout--classic">
-                                                <li><a href="blog-classic.html">Blog Classic</a></li>
-                                                <li><a href="blog-grid.html">Blog Grid</a></li>
-                                                <li><a href="blog-list.html">Blog List</a></li>
-                                                <li><a href="blog-left-sidebar.html">Blog Left Sidebar</a></li>
-                                                <li><a href="post.html">Post Page</a></li>
-                                                <li><a href="post-without-sidebar.html">Post Without Sidebar</a></li>
-                                            </ul>
-                                            <!-- .menu / end -->
+                                            @foreach($submenus as $submenu)
+                                                <ul class="mobile-links mobile-links--level--1">
+                                                    @if($submenu->maincategory == 'Baby')
+                                                        <li class="mobile-links__item" data-collapse-item>
+                                                            <div class="mobile-links__item-title"><a href="{{ url('product/category/'.$submenu->id) }}" class="mobile-links__item-link">{{ $submenu->name }}</a></div>
+                                                        </li>
+                                                    @endif
+                                                </ul>
+                                            @endforeach
                                         </div>
                                     </li>
-                                    <li class="nav-links__item nav-links__item--with-submenu"><a href="blog-classic.html"><span>Adult Food <svg class="nav-links__arrow" width="9px" height="6px"><use xlink:href="images/sprite.svg#arrow-rounded-down-9x6"></use></svg></span></a>
+                                    <li class="nav-links__item nav-links__item--with-submenu"><a href=""><span>Adult Food <i class="fa fa-angle-down p-1" aria-hidden="true"></i></span></a>
+                                        @foreach($submenus as $submenu)
                                         <div class="nav-links__menu">
-                                            <!-- .menu -->
-                                            <ul class="menu menu--layout--classic">
-                                                <li><a href="blog-classic.html">Blog Classic</a></li>
-                                                <li><a href="blog-grid.html">Blog Grid</a></li>
-                                                <li><a href="blog-list.html">Blog List</a></li>
-                                                <li><a href="blog-left-sidebar.html">Blog Left Sidebar</a></li>
-                                                <li><a href="post.html">Post Page</a></li>
-                                                <li><a href="post-without-sidebar.html">Post Without Sidebar</a></li>
+                                            <ul class="mobile-links mobile-links--level--1">
+                                                @if($submenu->maincategory == 'Adult')
+                                                    <li class="mobile-links__item" data-collapse-item>
+                                                        <div class="mobile-links__item-title"><a href="{{ url('product/category/'.$submenu->id) }}" class="mobile-links__item-link">{{ $submenu->name }}</a></div>
+                                                    </li>
+                                                @endif
                                             </ul>
-                                            <!-- .menu / end -->
                                         </div>
+                                        @endforeach
                                     </li>
-                                    <li class="nav-links__item nav-links__item--with-submenu"><a href="blog-classic.html"><span>Aged Food <svg class="nav-links__arrow" width="9px" height="6px"><use xlink:href="images/sprite.svg#arrow-rounded-down-9x6"></use></svg></span></a>
-                                        <div class="nav-links__menu">
-                                            <!-- .menu -->
-                                            <ul class="menu menu--layout--classic">
-                                                <li><a href="blog-classic.html">Blog Classic</a></li>
-                                                <li><a href="blog-grid.html">Blog Grid</a></li>
-                                                <li><a href="blog-list.html">Blog List</a></li>
-                                                <li><a href="blog-left-sidebar.html">Blog Left Sidebar</a></li>
-                                                <li><a href="post.html">Post Page</a></li>
-                                                <li><a href="post-without-sidebar.html">Post Without Sidebar</a></li>
-                                            </ul>
-                                            <!-- .menu / end -->
-                                        </div>
+                                    <li class="nav-links__item nav-links__item--with-submenu"><a href=""><span>Aged Food <i class="fa fa-angle-down p-1" aria-hidden="true"></i></span></a>
+                                        @foreach($submenus as $submenu)
+                                            <div class="nav-links__menu">
+                                                <ul class="mobile-links mobile-links--level--1">
+                                                    @if($submenu->maincategory == 'Aged')
+                                                        <li class="mobile-links__item" data-collapse-item>
+                                                            <div class="mobile-links__item-title"><a href="{{ url('product/category/'.$submenu->id) }}" class="mobile-links__item-link">{{ $submenu->name }}</a></div>
+                                                        </li>
+                                                    @endif
+                                                </ul>
+                                            </div>
+                                        @endforeach
                                     </li>
                                     <li class="nav-links__item"><a href="contact-us.html"><span>Contact Us</span></a></li>
-
                                 </ul>
                             </div>
                             <!-- .nav-links / end -->
                             <div class="nav-panel__indicators">
                                 <div class="indicator indicator--trigger--click">
-                                    <button type="button" class="indicator__button"><span class="indicator__area"><svg class="indicator__icon" width="20px" height="20px"><use xlink:href="images/sprite.svg#search-20"></use></svg> <svg class="indicator__icon indicator__icon--open" width="20px" height="20px"><use xlink:href="images/sprite.svg#cross-20"></use></svg></span></button>
+                                    <button type="button" class="indicator__button"><span class="indicator__area"><i class="fa fa-search" aria-hidden="true"></i></span></button>
                                     <div class="indicator__dropdown">
                                         <div class="drop-search">
                                             <form action="#" class="drop-search__form">
@@ -296,8 +218,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="indicator"><a href="wishlist.html" class="indicator__button"><span class="indicator__area"><svg width="20px" height="20px"><use xlink:href="images/sprite.svg#heart-20"></use></svg> <span class="indicator__value">0</span></span></a></div>
-                                <div class="indicator indicator--trigger--click"><a href="cart.html" class="indicator__button"><span class="indicator__area"><svg width="20px" height="20px"><use xlink:href="images/sprite.svg#cart-20"></use></svg> <span class="indicator__value">3</span></span></a>
+                                <div class="indicator indicator--trigger--click"><a href="cart.html" class="indicator__button"><span class="indicator__area"><i class="fa fa-shopping-cart" aria-hidden="true"></i><span class="indicator__value">0</span></span></a>
                                     <div class="indicator__dropdown">
                                         <!-- .dropcart -->
                                         <div class="dropcart">
@@ -484,6 +405,7 @@
 <!-- site / end -->
 
     <!-- js -->
+
     <script src="{{ asset('vendor/jquery-3.3.1/jquery.min.js')}}"></script>
     <script src="{{ asset('vendor/bootstrap-4.2.1/js/bootstrap.bundle.min.js')}}"></script>
     <script src="{{ asset('vendor/owl-carousel-2.3.4/owl.carousel.min.js')}}"></script>

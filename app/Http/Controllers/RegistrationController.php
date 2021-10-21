@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
@@ -12,9 +13,10 @@ class RegistrationController extends Controller
 {
     public function account(){
         if(Auth::check() && Auth::user()->userRole == 2){
-            return redirect('/dashboard');  
+            return redirect('/dashboard');
         }
         $data['title'] = 'Account';
+        $data['submenus'] = Category::all();
         return view('layouts.pages.account', $data);
     }
 
