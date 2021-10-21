@@ -15,6 +15,11 @@
                             {{ session('success') }}
                         </div>
                     @endif
+                    @if (session('danger'))
+                        <div class="alert alert-danger">
+                            {{ session('danger') }}
+                        </div>
+                    @endif
                 </div>
             </div>
         </div>
@@ -44,11 +49,11 @@
                                 </td>
                                 <td class="cart-table__column cart-table__column--price" data-title="Price">
                                     @if($cartProduct->product->productDiscount->amount != 0)
-                                        <b style="color: red"><strike>৳{{$cartProduct->product->productDiscount->amount}}</strike></b>
+                                        <b style="color: red"><strike>৳{{ number_format($cartProduct->product->price, 2) }}</strike></b>
                                         <br>
-                                        <strong>৳</strong>{{ $cartProduct->product->price - $cartProduct->product->productDiscount->amount}}
+                                        <strong>৳</strong>{{ number_format($cartProduct->product->price - $cartProduct->product->productDiscount->amount, 2)}}
                                     @else
-                                        <strong>৳</strong>{{ $cartProduct->product->price }}
+                                        <strong>৳</strong>{{ number_format($cartProduct->product->price, 2)}}
                                     @endif
 
                                 </td>
@@ -61,13 +66,13 @@
                                 </td>
                                 <td class="cart-table__column cart-table__column--total" data-title="Total">
                                     @if($cartProduct->product->productDiscount->amount != 0)
-                                        <strong>৳</strong>{{ ($cartProduct->product->price - $cartProduct->product->productDiscount->amount) * $cartProduct->product_qty  }}
+                                        <strong>৳</strong>{{ number_format(($cartProduct->product->price - $cartProduct->product->productDiscount->amount) * $cartProduct->product_qty, 2)  }}
                                     @else
-                                        <strong>৳</strong>{{ $cartProduct->product->price * $cartProduct->product_qty }}
+                                        <strong>৳</strong>{{ number_format($cartProduct->product->price * $cartProduct->product_qty, 2) }}
                                     @endif
                                 </td>
                                 <td class="cart-table__column cart-table__column--remove">
-                                    <a href="test"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                                    <a href="{{ url('/cart/item/delete/'.$cartProduct->id) }}"><i class="fa fa-trash" aria-hidden="true"></i></a>
                                 </td>
                             </tr>
                         @endforeach
@@ -89,28 +94,35 @@
                                     <thead class="cart__totals-header">
                                     <tr>
                                         <th>Subtotal</th>
-                                        <td>$5,877.00</td>
+                                        <?php
+                                            $subtotal = 0
+                                        ?>
+                                        @foreach($cartProducts as $cartProduct)
+                                            <?php number_format($subtotal = $subtotal + (($cartProduct->product->price - $cartProduct->product->productDiscount->amount ) * $cartProduct->product_qty), 2) ?>
+                                        @endforeach
+                                        <td><strong>৳</strong>{{ number_format($subtotal, 2) }}</td>
                                     </tr>
                                     </thead>
                                     <tbody class="cart__totals-body">
                                     <tr>
                                         <th>Shipping</th>
-                                        <td>$25.00
-                                            <div class="cart__calc-shipping"><a href="#">Calculate Shipping</a></div>
+                                        <td> <strong>৳</strong>{{ number_format($shipping_cost = 25.00, 2) }}
                                         </td>
-                                    </tr>
-                                    <tr>
-                                        <th>Tax</th>
-                                        <td>$0.00</td>
                                     </tr>
                                     </tbody>
                                     <tfoot class="cart__totals-footer">
                                     <tr>
                                         <th>Total</th>
-                                        <td>$5,902.00</td>
+                                        <td><strong>৳</strong>{{ number_format(($subtotal + $shipping_cost), 2) }}</td>
                                     </tr>
                                     </tfoot>
-                                </table><a class="btn btn-primary btn-xl btn-block cart__checkout-button" href="checkout.html">Proceed to checkout</a></div>
+                                </table>
+                                <a href="{{ route('checkout') }}">
+                                    <button type="submit" value="submit" class="btn btn-primary btn-xl btn-block cart__checkout-button">
+                                        Proceed to checkout
+                                    </button>
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>

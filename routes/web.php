@@ -11,6 +11,7 @@ use App\Http\Controllers\AdminCategoryController;
 use App\Http\Controllers\AdminDiscountController;
 use App\Http\Controllers\AdminProductController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\CheckoutController;
 
 /* Cutomer Controller */
 
@@ -40,9 +41,12 @@ Route::get('dashboard/single/product/{id}', [DashboardController::class, 'dashbo
 
 // cart page
 Route::get('dashboard/cart', [CartController::class, 'dashboard_cart'])->name('dashboard_cart');
-
 Route::post('/dashboard/cart/update', [CartController::class, 'cart_update'])->name('cart_update');
+Route::get('/cart/item/delete/{id}', [CartController::class, 'cart_item_delete'])->name('cart_item_delete');
 
+// checkout page
+Route::get('dashboard/checkout', [CheckoutController::class, 'checkout'])->name('checkout');
+Route::post('/checkout', [CheckoutController::class, 'product_checkout'])->name('product_checkout');
 
 /* Admin Controller */
 
