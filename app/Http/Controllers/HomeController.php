@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cart;
 use App\Models\Category;
+use App\Models\Discount;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Product;
@@ -17,7 +19,24 @@ class HomeController extends Controller
         }
         $data['title'] = 'Home';
         $data['submenus'] = Category::all();
-        $data['products'] = Product::with('ProductCategory','productDiscount')->where('status','=',0)->get();
+        // Special offer
+        $query = Discount::orderBy('amount', 'desc')->limit(3)->get();
+        $special_offer = array();
+        foreach ($query as $item){
+            $b = Product::with('productDiscount')->where('discount_id', $item->id)->first();
+            array_push($special_offer,$b);
+        }
+        $data['special_offers'] = $special_offer;
+        //print_r($special_offer); die();
+        // Best-selling food
+        $bsf = Cart::groupBy('product_id')->select('product_id', DB::raw('count(*) as total'))->limit(3)->get();
+        $best_s_f = array();
+        foreach ($bsf as $item){
+            $c = Product::with('productDiscount')->where('id', $item->product_id)->first();
+            array_push($best_s_f, $c);
+        }
+        $data['bsfs'] = $best_s_f;
+        $data['products'] = Product::with('ProductCategory','productDiscount')->where('status','=',0)->limit(6)->get();
         return view('layouts.pages.index', $data);
     }
 
@@ -34,4 +53,5 @@ class HomeController extends Controller
         $data['products'] = Product::with('ProductCategory','productDiscount')->where(['id'=> $id])->get();
         return view('layouts.pages.singleproduct', $data);
     }
+
 }

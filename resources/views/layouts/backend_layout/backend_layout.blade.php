@@ -144,6 +144,8 @@ $total = CartController::totalCartItem();
                         <div class="topbar__item">
                             <div class="topbar__item topbar__item--link"><a class="topbar-link" href="{{ route('logout') }}">Log out</a></div>
                             <div class="topbar__item topbar__item--link"><a class="topbar-link" href="">{{ Auth::user()->name }}</a></div>
+                            <div class="topbar__item topbar__item--link"><a class="topbar-link" href="{{ route('food_review') }}">Food Review</a></div>
+                            <div class="topbar__item topbar__item--link"><a class="topbar-link" href="{{ route('order_list') }}">Orders</a></div>
                         </div>
                     </div>
                 </div>

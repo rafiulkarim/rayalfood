@@ -12,6 +12,7 @@ use App\Http\Controllers\AdminDiscountController;
 use App\Http\Controllers\AdminProductController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\AdminOrderController;
 
 /* Cutomer Controller */
 
@@ -47,6 +48,12 @@ Route::get('/cart/item/delete/{id}', [CartController::class, 'cart_item_delete']
 // checkout page
 Route::get('dashboard/checkout', [CheckoutController::class, 'checkout'])->name('checkout');
 Route::post('/checkout', [CheckoutController::class, 'product_checkout'])->name('product_checkout');
+
+Route::get('order/list', [CheckoutController::class,'order_list'])->name('order_list');
+Route::get('/product/delivered/{id}', [CheckoutController::class,'product_delivered'])->name('product_delivered');
+
+Route::get('/dashboard/food/review', [CheckoutController::class, 'food_review'])->name('food_review');
+Route::post('food/review', [CheckoutController::class, 'single_food_review'])->name('single_food_review');
 
 /* Admin Controller */
 
@@ -88,3 +95,8 @@ Route::post('/admin/product/active', [AdminProductController::class, 'product_in
 
 // Cart
 Route::post('/product/cart', [CartController::class, 'cart'])->name('cart');
+
+// Order manage
+Route::get('/new/order/list', [AdminOrderController::class, 'new_order_list'])->name('new_order_list');
+Route::get('order/confirm/{id}', [AdminOrderController::class, 'order_confirm'])->name('order_confirm');
+Route::get('order/delivered/list', [AdminOrderController::class, 'order_delivered'])->name('order_delivered');

@@ -5,11 +5,11 @@
 
 
 @section('content')
-    <form action="{{ route('product_checkout') }}" method="post">
-        @csrf
         <div class="checkout block">
             <div class="container">
-                <div class="row">
+                <form action="{{ route('product_checkout') }}" method="post" id="checkout">
+                    @csrf
+                    <div class="row">
                     <div class="col-12 col-lg-6 col-xl-7">
                         <div class="card mb-lg-0">
                             <div class="card-body">
@@ -17,41 +17,64 @@
                                 <div class="form-row">
                                     <div class="form-group col-md-6">
                                         <label for="checkout-first-name">First Name</label>
-                                        <input type="text" class="form-control" id="checkout-first-name" placeholder="First Name" name="f_name">
+                                        <input type="text" class="form-control @error('first_name') is-invalid @enderror" id="f_name" placeholder="First Name" name="first_name">
+                                        @error('first_name')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
                                     </div>
                                     <div class="form-group col-md-6">
                                         <label for="checkout-last-name">Last Name</label>
-                                        <input type="text" class="form-control" id="checkout-last-name" placeholder="Last Name" name="l_name">
+                                        <input type="text" class="form-control @error('last_name') is-invalid @enderror" id="last_name" placeholder="Last Name" name="last_name">
+                                        @error('last_name')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="checkout-company-name">Phone number</label>
-                                    <input type="number" class="form-control" id="checkout-company-name" placeholder="Phone Number" name="phone">
+                                    <input type="text" class="form-control @error('phone') is-invalid @enderror" id="phone" placeholder="Phone Number" name="phone">
+                                    @error('phone')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
                                 </div>
                                 <div class="form-group">
                                     <label for="checkout-company-name">Full Address</label>
-                                    <textarea id="checkout-comment" class="form-control" rows="4" name="address"
-                                              placeholder="Enter specific address"></textarea>
+                                    <textarea id="address" class="form-control @error('address') is-invalid @enderror" rows="4" name="address"
+                                              placeholder="Enter House no, Post Code, City"></textarea>
+                                    @error('address')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
                                 </div>
                                 <div class="payment-methods">
                                     <ul class="payment-methods__list">
                                         <li class="payment-methods__item">
-                                            <label class="payment-methods__item-header"><span class="payment-methods__item-radio input-radio"><span class="input-radio__body"><input class="input-radio__input" name="checkout_payment_method" value="Cash" type="radio"> <span class="input-radio__circle"></span> </span>
+                                            <label class="payment-methods__item-header"><span class="payment-methods__item-radio input-radio"><span class="input-radio__body"><input class="input-radio__input @error('cash') is-invalid @enderror" id="cash" name="cash" value="Cash" type="radio"> <span class="input-radio__circle"></span> </span>
 													</span><span class="payment-methods__item-title">Cash on delivery</span></label>
-                                        </li>
-                                        <li class="payment-methods__item">
-                                            <label class="payment-methods__item-header"><span class="payment-methods__item-radio input-radio"><span class="input-radio__body"><input class="input-radio__input" name="checkout_payment_method" value="Bkash" type="radio"> <span class="input-radio__circle"></span> </span>
-													</span><span class="payment-methods__item-title">BKash</span></label>
+                                            @error('cash')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
                                         </li>
                                     </ul>
                                 </div>
                             </div>
-                            <div class="card-divider"></div>
                         </div>
                     </div>
                     <div class="col-12 col-lg-6 col-xl-5 mt-4 mt-lg-0">
                         <div class="card mb-0">
                             <div class="card-body">
+                                <div class="pb-4">
+                                    <a href="{{ route('dashboard_cart') }}" class="btn btn-secondary btn-block">Go to Cart</a>
+                                </div>
                                 <h3 class="card-title">Your Order</h3>
                                 <table class="checkout__totals">
                                     <thead class="checkout__totals-header">
@@ -83,6 +106,7 @@
                                         ?>
                                         @foreach($cartProducts as $cartProduct)
                                             <?php number_format($subtotal = $subtotal + (($cartProduct->product->price - $cartProduct->product->productDiscount->amount ) * $cartProduct->product_qty), 2) ?>
+{{--                                                <input type="hidden" name="cart_id[]" value="{{ $cartProduct->id }}">--}}
                                         @endforeach
                                         <td>{{ number_format($subtotal, 2) }}</td>
                                     </tr>
@@ -99,21 +123,21 @@
                                     </tfoot>
 
                                 </table>
+
                                 <button type="submit" class="btn btn-primary btn-xl btn-block">Place Order</button>
                             </div>
                         </div>
                     </div>
                 </div>
+                </form>
             </div>
         </div>
-    </form>
-
 @endsection
 
 @section('footer_section')
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-    <script>
-
+    <script src="{{ asset('js/jquery.validate.js') }}"></script>
+    <script type="text/javascript">
+        var form = $("#checkouttest");
+        var validator = form.validate();
     </script>
 @endsection

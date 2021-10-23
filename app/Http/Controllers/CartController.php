@@ -19,7 +19,8 @@ class CartController extends Controller
     public function cart(Request $request){
         $cart = new Cart;
         $product = $request->product_id;
-        $productexitscart = Cart::where(['product_id' => $product, 'user_id' => Auth::user()->id])->first();
+        $productexitscart = Cart::where(['product_id' => $product, 'user_id' => Auth::user()->id,
+            'status'=>0])->first();
         if(!$productexitscart){
             $cart->product_qty = $request->product_qty;
             $cart->product_id = $product;
