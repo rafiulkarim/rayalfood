@@ -123,7 +123,6 @@
                                     </tfoot>
 
                                 </table>
-
                                 <button type="submit" class="btn btn-primary btn-xl btn-block">Place Order</button>
                             </div>
                         </div>

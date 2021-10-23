@@ -56,6 +56,7 @@
                                 <form action="{{ url('food/review/') }}" method="post">
                                     @csrf
                                     <input type="hidden" name="product_id" value="{{ $order_data->cart->product_id }}">
+                                    <input type="hidden" name="cart_id" value="{{ $order_data->cart->id }}">
                                 <div class="form-group">
                                     <select class="form-control" id="review" name="review">
                                         <option value="1">1</option>

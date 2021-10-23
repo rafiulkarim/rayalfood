@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Cart;
 use App\Models\Category;
 use App\Models\Discount;
+use App\Models\Review;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Product;
@@ -19,6 +20,15 @@ class HomeController extends Controller
         }
         $data['title'] = 'Home';
         $data['submenus'] = Category::all();
+        // Top-rated food
+        $trp = DB::select("SELECT count(star) as fivestar, product_id FROM reviews WHERE star=5 GROUP BY product_id ORDER BY
+                                 COUNT(fivestar) DESC LIMIT 3");
+        $review = array();
+        foreach ($trp as $t){
+            $b = Product::with('productDiscount')->where('id', $t->product_id)->first();
+            array_push($review,$b);
+        }
+        $data['reviews'] = $review;
         // Special offer
         $query = Discount::orderBy('amount', 'desc')->limit(3)->get();
         $special_offer = array();
@@ -27,7 +37,6 @@ class HomeController extends Controller
             array_push($special_offer,$b);
         }
         $data['special_offers'] = $special_offer;
-        //print_r($special_offer); die();
         // Best-selling food
         $bsf = Cart::groupBy('product_id')->select('product_id', DB::raw('count(*) as total'))->limit(3)->get();
         $best_s_f = array();
@@ -43,6 +52,7 @@ class HomeController extends Controller
     public function product_category(Request $request, $id){
         $data['title'] = 'Category';
         $data['submenus'] = Category::all();
+        $data['search_category'] = Category::where('id', $id)->first();
         $data['products'] = Product::with('ProductCategory','productDiscount')->where(['category_id'=> $id, 'status' => 0])->get();
         return view('layouts.pages.category', $data);
     }
@@ -52,6 +62,15 @@ class HomeController extends Controller
         $data['submenus'] = Category::all();
         $data['products'] = Product::with('ProductCategory','productDiscount')->where(['id'=> $id])->get();
         return view('layouts.pages.singleproduct', $data);
+    }
+
+    public function search(Request $request){
+        $cat_id = $request->id;
+        $min = $request->min;
+        $max = $request->max;
+
+        $query = Product::whereBetween('price', [$min, $max])->whereHas('category_id', $cat_id)->get();
+        print_r($query);
     }
 
 }

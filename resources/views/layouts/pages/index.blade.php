@@ -157,42 +157,44 @@
             <div class="row">
                 <div class="col-md-4">
                     <h4 class="text-center pb-3" style="text-decoration: underline; text-decoration-color: orange">Top Rated Food</h4>
-                    <div class="col-md-12 pt-3">
-                        <div class="row">
-                            <div class="col-md-4">
-                                <a href=""><img src="{{asset('/admin/product/w.jpg')}}" height="100%" width="100%" alt=""></a>
-                            </div>
-                            <div class="col-md-8 pt-2">
-                                <p>Lorem ipsum dolor sit amet.</p>
-                                <span class="fa fa-star checked" style="color: orange"></span>
-                                <span class="fa fa-star checked" style="color: orange"></span>
-                                <span class="fa fa-star checked" style="color: orange"></span>
-                                <span class="fa fa-star checked" style="color: orange"></span>
-                                <span class="fa fa-star checked" style="color: orange"></span>
+                    @foreach($reviews as $review)
+                        <div class="col-md-12 pt-3">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <a href="{{ url('/single/product/'.$review->id) }}"><img src="{{asset('/admin/product/'.$review->image)}}" height="100%" width="100%" alt=""></a>
+                                </div>
+                                <div class="col-md-8 pt-2">
+                                    <p style="line-height: 1">{{ $review->name }}</p>
+                                    @if($review->productDiscount->amount != 0)
+                                        <p style="line-height: 1">Regular Price: <strike style="color: red">৳{{ $review->price }}</strike></p>
+                                        <p style="line-height: 0">Discount Price: ৳{{ number_format($review->price - $review->productDiscount->amount, 2) }}</p>
+                                    @else
+                                        <p style="line-height: 1">Price: ৳{{ $review->price }} </p>
+                                    @endif
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    @endforeach
                 </div>
                 <div class="col-md-4" style="border-left: 3px solid orange">
                     <h4 class="text-center pb-3" style="text-decoration: underline; text-decoration-color: orange">Special Offers</h4>
                     @foreach($special_offers as $special_offer)
-                        {{ $special_offer }}
-{{--                        <div class="col-md-12 pt-3">--}}
-{{--                            <div class="row">--}}
-{{--                                <div class="col-md-4">--}}
-{{--                                    <a href="{{ url('/single/product/'.$special_offer->id) }}"><img src="{{asset('/admin/product/'.$special_offer->image)}}" height="100%" width="100%" alt=""></a>--}}
-{{--                                </div>--}}
-{{--                                <div class="col-md-8 pt-2">--}}
-{{--                                    <p style="line-height: 1">{{ $special_offer->name }}</p>--}}
-{{--                                    @if($special_offer->productDiscount->amount != 0)--}}
-{{--                                        <p style="line-height: 1">Regular Price: <strike style="color: red">৳{{ $special_offer->price }}</strike></p>--}}
-{{--                                        <p style="line-height: 0">Discount Price: ৳{{ number_format($special_offer->price - $special_offer->productDiscount->amount, 2) }}</p>--}}
-{{--                                    @else--}}
-{{--                                        <p style="line-height: 1">Price: ৳{{ $special_offer->price }} </p>--}}
-{{--                                    @endif--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
+                        <div class="col-md-12 pt-3">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <a href="{{ url('/single/product/'.$special_offer->id) }}"><img src="{{asset('/admin/product/'.$special_offer->image)}}" height="100%" width="100%" alt=""></a>
+                                </div>
+                                <div class="col-md-8 pt-2">
+                                    <p style="line-height: 1">{{ $special_offer->name }}</p>
+                                    @if($special_offer->productDiscount->amount != 0)
+                                        <p style="line-height: 1">Regular Price: <strike style="color: red">৳{{ $special_offer->price }}</strike></p>
+                                        <p style="line-height: 0">Discount Price: ৳{{ number_format($special_offer->price - $special_offer->productDiscount->amount, 2) }}</p>
+                                    @else
+                                        <p style="line-height: 1">Price: ৳{{ $special_offer->price }} </p>
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
                     @endforeach
                 </div>
                 <div class="col-md-4" style="border-left: 3px solid orange">

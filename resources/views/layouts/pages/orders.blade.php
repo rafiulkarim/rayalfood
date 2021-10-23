@@ -36,7 +36,7 @@
                     @foreach($order_datas as $order_data)
                     <tr class="cart-table__row">
                         <td class="cart-table__column cart-table__column--image">
-                            <a href="#"><img src="{{ asset('admin/product/'.$order_data->cart->product->image) }}" alt=""></a>
+                            <a href="{{ url('dashboard/single/product/'.$order_data->cart->product->id) }}"><img src="{{ asset('admin/product/'.$order_data->cart->product->image) }}" alt=""></a>
                         </td>
                         <td class="cart-table__column cart-table__column--product"><a href="#" class="cart-table__product-name">{{ $order_data->cart->product->name }}</a>
                         </td>

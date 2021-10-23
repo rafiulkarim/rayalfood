@@ -11,7 +11,28 @@
 
 @section('content')
     <div class="container mydiv">
-        <h3 class="text-center text-dark feature-product">Foods</h3>
+        <div class="row pb-5">
+            <div class="col-md-4">
+{{--                @foreach($search_category as $cat)--}}
+                <form class="form-inline" action="{{ route('search') }}" method="post">
+                    @csrf
+                    <input type="hidden" name="cat_id" value="{{ $search_category->id }}">
+                    <label for="min" style="padding: 7px">Min: </label>
+                    <input type="text" class="text-center" id="min" name="min" value="0" style="width: 65px">
+                    <label for="max" style="padding: 7px">Max: </label>
+                    <input type="text" class="text-center" id="max" name="max" value="0" style="width: 65px">
+                    <div style="padding-left: 8px">
+                        <button class="btn btn-primary" value="submit" type="submit">Search</button>
+                    </div>
+                </form>
+{{--                @endforeach--}}
+            </div>
+
+            <div class="col-md-4">
+                <h3 class="text-center text-dark feature-product text-center">Foods</h3>
+            </div>
+            <div class="col-md-4"></div>
+        </div>
         <div class="row">
             @if (session('success'))
                 <div class="alert alert-success">

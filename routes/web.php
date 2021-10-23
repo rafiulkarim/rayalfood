@@ -18,6 +18,9 @@ use App\Http\Controllers\AdminOrderController;
 
 Route::get('/', [HomeController::class, 'home'])->name('home');
 
+// search with price
+Route::post('search/food', [HomeController::class, 'search'])->name('search');
+
 // account
 Route::get('/account', [RegistrationController::class, 'account'])->name('account');
 Route::post('/register', [RegistrationController::class, 'registration'])->name('register');
@@ -49,11 +52,14 @@ Route::get('/cart/item/delete/{id}', [CartController::class, 'cart_item_delete']
 Route::get('dashboard/checkout', [CheckoutController::class, 'checkout'])->name('checkout');
 Route::post('/checkout', [CheckoutController::class, 'product_checkout'])->name('product_checkout');
 
+// order list
 Route::get('order/list', [CheckoutController::class,'order_list'])->name('order_list');
 Route::get('/product/delivered/{id}', [CheckoutController::class,'product_delivered'])->name('product_delivered');
 
+// food review
 Route::get('/dashboard/food/review', [CheckoutController::class, 'food_review'])->name('food_review');
 Route::post('food/review', [CheckoutController::class, 'single_food_review'])->name('single_food_review');
+
 
 /* Admin Controller */
 

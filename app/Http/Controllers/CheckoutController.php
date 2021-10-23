@@ -52,8 +52,6 @@ class CheckoutController extends Controller
             $cart->user_id = Auth::user()->id;
             $cart->save();
             Cart::where(['user_id'=>Auth::user()->id, 'status'=>0])->update(['status'=>1]);
-
-
         }
         return redirect('/dashboard')->with('success', 'Your order placed Successfully and Continue shopping');
     }
@@ -92,12 +90,15 @@ class CheckoutController extends Controller
         $review = new Review;
         $review->star = $request->review;
         $review->user_id = Auth::user()->id;
-        $review->status = 0;
         $review->product_id = $request->product_id;
+        $review->save();
 
-        $query = $review->save();
+        $cart_id = $request->cart_id;
+        $query = Checkout::where(['user_id'=>Auth::user()->id,
+            'status'=>0, 'order_manage'=>2, 'cart_id'=>$cart_id])->update(['status'=>1]);
         if ($query){
             return redirect('/dashboard/food/review')->with('success', 'Thanks for your review');
         }
+
     }
 }
